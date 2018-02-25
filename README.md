@@ -5,8 +5,6 @@ Please use responsibly. I, do not take responsibility for misuse or damages.
 This software comes with no warranty. Don't do evil stuff.
 
 Planned features:
-+ Session saving (somewhat already implemented)
-+ FileGenerator
 + Distributed processing
 
 Concurrent example:
