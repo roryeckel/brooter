@@ -19,7 +19,7 @@ def test_password(password):
 
 if __name__ == '__main__':
     with br00ter.FileGenerator('passlist.txt') as x:
-    # with br00ter.TableGenerator('abc', 3, 5) as x:
+    # with br00ter.TableGenerator('12345', 5, 5) as x:
         pool = br00ter.BrutePool(x, test_password)
         pool.start()
         pool.join()
