@@ -21,3 +21,4 @@ __all__ = ['concurrent', 'linear', 'generator']
 
 from .linear import Brute
 from .concurrent import BrutePool
+from .generator import TableGenerator, FileGenerator

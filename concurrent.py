@@ -38,12 +38,13 @@ optionally with a previous set of results to skip"""
         self.save_invalid = save_invalid
 
     def is_running(self):
-        return self.pool.is_alive()
+        """Check if the pool is in _state RUN"""
+        return self.pool._state == multiprocessing.pool.RUN
 
     def _callback(self, t):
         """self.pool's apply_async callback to filter checks into self.results"""
         i, success = t
-        if success is False and self.save_invalid:
+        if success is True or (success is False and self.save_invalid):
             self.result[i] = success
         if self.stop_when_found and success is True:
             self.stop()
@@ -53,6 +54,8 @@ optionally with a previous set of results to skip"""
         keys = None if self.previous_result is None else self.previous_result.keys()
         for case in self.cases:
             if keys is None or case not in keys:
+                if not self.is_running():
+                    return
                 self.pool.apply_async(func=self.fn, args=(case,), callback=self._callback)
                 if apply_delay != 0:
                     time.sleep(apply_delay)
@@ -61,9 +64,16 @@ optionally with a previous set of results to skip"""
         """Terminate all brute force processes and return self.result"""
         self.pool.close()
         self.pool.terminate()
-        self.pool.join()
 
     def join(self):
         """Close and join the processes"""
         self.pool.close()
         self.pool.join()
+
+    def get_positive_results(self):
+        """Return a list of all positive results"""
+        good = list()
+        for key, value in self.result.items():
+            if value:
+                good.append(key)
+        return good
