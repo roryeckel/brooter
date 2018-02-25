@@ -8,3 +8,21 @@ Planned features:
 + Session saving (somewhat already implemented)
 + FileGenerator
 + Distributed processing
+
+Concurrent example:
+```python
+import br00ter
+
+def test_password(password):
+    print('testing ' + password)
+    return (password, password == '12345')
+
+if __name__ == '__main__':
+    with br00ter.FileGenerator('passlist.txt') as x:
+    # with br00ter.TableGenerator('abc', 3, 5) as x:
+        pool = br00ter.BrutePool(x, test_password)
+        pool.start()
+        pool.join()
+        print(pool.get_positive_results())
+
+```
