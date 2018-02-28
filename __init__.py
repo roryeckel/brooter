@@ -17,8 +17,10 @@ Please use responsibly, I, ex0dus, do not take responsibility for misuse or dama
                 /h.` `.h+"""
 __author__ = 'ex0dus'
 __version__ = '1.0'
-__all__ = ['concurrent', 'linear', 'generator']
+__all__ = ['concurrent', 'linear', 'generator', 'distributor', 'targets', 'reverser']
 
 from .linear import Brute
 from .concurrent import BrutePool
 from .generator import TableGenerator, FileGenerator
+from . import targets
+from . import reverser

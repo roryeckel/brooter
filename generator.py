@@ -16,8 +16,8 @@
 __author__ = 'ex0dus'
 __version__ = '1.0'
 
+import math
 from itertools import chain, product, islice
-import os
 
 def _not_equals(one, two):
     """one != two"""
@@ -42,6 +42,15 @@ def skip_generator(gen, count):
     """Skip count items in a generator"""
     for i in range(count):
         next(gen)
+
+def distribute(gen, count):
+    gen_len = generator_length(gen)
+    piece_length = int(math.floor(gen_len / count))
+    pieces = [next(gen)]
+    for i in range(count - 1):
+        skip_generator(gen, piece_length)
+        pieces.append(next(gen))
+    return pieces
 
 class TableGenerator:
     """Brute force table combination generator"""
