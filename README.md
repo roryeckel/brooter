@@ -26,7 +26,7 @@ requests.post('http://vulnerable.website', data=data)
 ```
 
 Putting it together:
-Automatically scan a webpage for forms and brute-force without any reverse-engineering required:
+Automatically scan a webpage for forms and brute-force using 4 python processes (default) without any reverse-engineering required:
 ```python
 import br00ter, requests
 from br00ter import reverser
